@@ -33,6 +33,7 @@ export const getClients = async (
 ) => {
   createQueryBuilder()
 const clients = await Client.find({})
+
 console.log(clients);
 return res.status(200).json("success")
 };
