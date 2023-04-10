@@ -1,0 +1,5 @@
+to create password for postgres db 
+
+sudo -u postgres psql
+\password
+enter password

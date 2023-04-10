@@ -6,8 +6,8 @@
 	"scripts": {
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon --exec npx ts-node src/index.ts",
-    "build":"tsc --build",
-    "start": "node dist/index.js "
+		"build": "tsc --build",
+		"start": "node dist/index.js "
 	},
 	"keywords": [],
 	"author": "ahmed",
@@ -15,6 +15,7 @@
 	"dependencies": {
 		"@types/express": "^4.17.14",
 		"express": "^4.18.2",
+		"nodemon": "^2.0.22",
 		"pg": "^8.6.0",
 		"ts-node": "^10.9.1",
 		"typeorm": "^0.2.45",

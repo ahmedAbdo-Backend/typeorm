@@ -1,26 +1,44 @@
-import { BaseEntity ,Entity , Column ,PrimaryGeneratedColumn,ManyToOne,JoinColumn } from 'typeorm';
-import { Client } from './client';
+import {
+  BaseEntity,
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  ManyToOne,
+  JoinColumn,
+} from "typeorm";
+import { Client } from "./client";
 export enum TransactionType {
-    Deposit="deposit",
-    WITHDRAW="withdraw"
+  Deposit = "deposit",
+  WITHDRAW = "withdraw",
 }
 
 @Entity("Transaction")
 export class Transaction extends BaseEntity {
+  @PrimaryGeneratedColumn()
+  _id: string;
 
-    @PrimaryGeneratedColumn()
-    _id:string
+  @Column({
+    type: "enum",
+    enum: TransactionType,
+  })
+  type: string;
+  @ManyToOne(() => Client, (client) => client.transactions)
+  @JoinColumn({
+    name: "client_id", // name of forgin key
+  })
+  client: Client;
+  @Column({ type: "numeric", precision: 10, scale: 2, default: 0 })
+  amount: number;
 
-    @Column({
-        type:"enum",
-        enum:TransactionType
-    })
-    @ManyToOne(()=>Client,
-      client=>client.transactions
+  beforeInsert() {
+    if (this.amount < 0) {
+      throw new Error("Amount must be a positive number");
+    }
+  }
 
-    )
-    @JoinColumn({
-        name:"client_id"
-    })
-    client:Client
+  beforeUpdate() {
+    if (this.amount < 0) {
+      throw new Error("Amount must be a positive number");
+    }
+  }
 }

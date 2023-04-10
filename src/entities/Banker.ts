@@ -25,6 +25,7 @@ export class Banker extends Person {
             referencedColumnName: "_id"
         }
     })
+
     clients: Client[]
     @CreateDateColumn()
     createdAt: Date
